@@ -1,35 +1,37 @@
-import type { Route } from "./+types/home";
+import type {Route} from "./+types/home";
 import NavBar from "~/components/NavBar"
 import {resumes} from "../../constants";
 import {resume} from "react-dom/server";
 import ResumeCard from "~/components/ResumeCard";
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Resumind" },
-    { name: "description", content: "Smart feedback for your dream JOB!" },
-  ];
+    return [
+        {title: "Resumind"},
+        {name: "description", content: "Smart feedback for your dream JOB!"},
+    ];
 }
 
 export default function Home() {
-  return <main className="bg-[url('/images/bg-main.svg')] bg-cover">
-    <NavBar/>
-    <section className="main-section">
-      <div className="page-heading">
-        <h1>Track Your Application & Resume Ratings</h1>
-        <h2>Review your submissions and check AI-powered feedback.</h2>
+    return <main className="bg-[url('/images/bg-main.svg')] bg-cover">
+        <NavBar/>
+        <section className="main-section">
+            <div className="page-heading py-16">
+                <h1>Track Your Application & Resume Ratings</h1>
+                <h2>Review your submissions and check AI-powered feedback.</h2>
 
-      </div>
-
-    </section>
-    {resumes.length > 0 &&(
-        <div className="resumes-section">
-          {resumes.map((resume) => (
-            <ResumeCard key={resume.id} resume={resume} />
-          ))}
-        </div>
-    )}
+            </div>
 
 
-  </main>
+            {resumes.length > 0 && (
+                <div className="resumes-section">
+                    {resumes.map((resume) => (
+                        <ResumeCard key={resume.id} resume={resume}/>
+                    ))}
+                </div>
+            )}
+
+        </section>
+
+
+    </main>
 }
