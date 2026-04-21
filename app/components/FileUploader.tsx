@@ -17,16 +17,13 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
     const {getRootProps , getInputProps, isDragActive} = useDropzone({onDrop});
 
     return(
-        <div className="gradient-border">
+        <div className="w-full gradient-border">
             <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 <div className="space-y-4 cursor-pointer">
-                    <div>
-                        <div className="">
+                        <div className="mx-auto w-16 h-16 flex items-center justify-center">
                             <img src="/icons/info.svg" alt="upload" className="size-20"/>
                         </div>
-                    </div>
-
                 </div>
 
             </div>
