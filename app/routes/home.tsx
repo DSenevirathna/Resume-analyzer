@@ -19,10 +19,11 @@ export default function Home() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!auth.isAuthenticated) navigate('/auth?next=/');
+        if (!auth.isAuthenticated) navigate('/auth?next=/');
     }, [auth.isAuthenticated])
 
-    return <main className="bg-[url('/images/bg-main.svg')] bg-cover">
+    return (
+    <main className="bg-[url('/images/bg-main.svg')] bg-cover">
         <NavBar/>
         <section className="main-section">
             <div className="page-heading py-16">
@@ -42,6 +43,6 @@ export default function Home() {
 
         </section>
 
-
     </main>
+    )
 }
