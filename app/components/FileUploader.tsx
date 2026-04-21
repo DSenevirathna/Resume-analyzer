@@ -8,6 +8,8 @@ interface FileUploaderProps {
 
 const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
 
+    const [file, setFile] = useState();
+
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const file = acceptedFiles[0] || null;
 
@@ -24,6 +26,17 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
                         <div className="mx-auto w-16 h-16 flex items-center justify-center">
                             <img src="/icons/info.svg" alt="upload" className="size-20"/>
                         </div>
+
+                    {file ? (
+                        <div>
+
+                        </div>
+                    ):(
+                        <div>
+
+                        </div>
+                    )}
+                    
                 </div>
 
             </div>
