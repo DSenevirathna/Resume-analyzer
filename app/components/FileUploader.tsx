@@ -8,15 +8,22 @@ interface FileUploaderProps {
 
 const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
 
-    const [file, setFile] = useState();
-
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const file = acceptedFiles[0] || null;
 
         onFileSelect?.(file);
     }, [onFileSelect]);
 
-    const {getRootProps , getInputProps, isDragActive} = useDropzone({onDrop});
+    const {getRootProps , getInputProps, isDragActive, acceptedFiles} = useDropzone({
+        onDrop,
+        multiple:false,
+        accept : {'application/pdf' : ['.pdf']},
+        maxSize: 20 * 1024 * 1024,
+    });
+
+    const file = acceptedFiles[0] || null;
+
+
 
     return(
         <div className="w-full gradient-border">
@@ -33,10 +40,16 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
                         </div>
                     ):(
                         <div>
+                            <p className="text-lg text-gray-500">
+                                <span className="font-semibold">
+                                    Click to Upload
+                                </span>
+                            </p>
+                            <p className="text-lg text-gray-500">PDF (max 20 MB)</p>
 
                         </div>
                     )}
-                    
+
                 </div>
 
             </div>
