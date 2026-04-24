@@ -7,6 +7,22 @@ import {convertPdfToImage} from "~/lib/pdf2img";
 import {generateUUID} from "~/lib/utils";
 import {prepareInstructions} from "../../constants";
 
+const parseFeedbackJson = (rawFeedback: string) => {
+    const trimmed = rawFeedback.trim();
+    const fencedMatch = trimmed.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
+    const normalized = (fencedMatch ? fencedMatch[1] : trimmed).trim();
+
+    try {
+        return JSON.parse(normalized);
+    } catch {
+        const objectMatch = normalized.match(/\{[\s\S]*\}/);
+        if (objectMatch) {
+            return JSON.parse(objectMatch[0]);
+        }
+        throw new Error("Invalid JSON feedback format");
+    }
+}
+
 const Upload = () => {
     const { auth, isLoading, fs, ai, kv } = usePuterStore();
     const navigate = useNavigate();
@@ -56,7 +72,13 @@ const Upload = () => {
             ? feedback.message.content
             : feedback.message.content[0].text;
 
-        data.feedback = JSON.parse(feedbackText);
+        try {
+            data.feedback = parseFeedbackJson(feedbackText);
+        } catch {
+            setStatusText('Error: Failed to parse AI feedback. Please try again.');
+            setIsProcessing(false);
+            return;
+        }
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
         setStatusText('Analysis complete, redirecting...');
         console.log(data);
