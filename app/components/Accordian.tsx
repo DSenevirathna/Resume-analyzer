@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
-import React, { createContext, useContext, useState } from "react";
-import { cn } from "~/lib/utils";
+import type {ReactNode} from "react";
+import React, {createContext, useContext, useState} from "react";
+import {cn} from "~/lib/utils";
 
 interface AccordionContextType {
     activeItems: string[];
@@ -53,7 +53,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 
     return (
         <AccordionContext.Provider
-            value={{ activeItems, toggleItem, isItemActive }}
+            value={{activeItems, toggleItem, isItemActive}}
         >
             <div className={`space-y-2 ${className}`}>{children}</div>
         </AccordionContext.Provider>
@@ -93,7 +93,7 @@ export const AccordionHeader: React.FC<AccordionHeaderProps> = ({
                                                                     icon,
                                                                     iconPosition = "right",
                                                                 }) => {
-    const { toggleItem, isItemActive } = useAccordion();
+    const {toggleItem, isItemActive} = useAccordion();
     const isActive = isItemActive(itemId);
 
     const defaultIcon = (
@@ -149,7 +149,7 @@ export const AccordionContent: React.FC<AccordionContentProps> = ({
                                                                       children,
                                                                       className = "",
                                                                   }) => {
-    const { isItemActive } = useAccordion();
+    const {isItemActive} = useAccordion();
     const isActive = isItemActive(itemId);
 
     return (
